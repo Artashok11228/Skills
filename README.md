@@ -1,19 +1,14 @@
-<div dir="rtl">
-
 # Skills
 
-مجموعهٔ اسکیل‌های شخصی من برای کار با دستیارهای هوش مصنوعی.
-هر اسکیل در یک پوشهٔ مستقل نگهداری می‌شود و دستورالعمل اصلی آن در فایل `SKILL.md` قرار دارد.
+My personal collection of skills for AI assistants. Each skill lives in its own folder, with its main instructions in a `SKILL.md` file.
 
-## اسکیل‌های موجود
+## Available skills
 
-| اسکیل | کاربرد |
+| Skill | Purpose |
 | --- | --- |
-| [agile-team](skills/agile-team/SKILL.md) | اجرای مرحله‌ای قابلیت‌ها و رفع اشکال با معیار پذیرش، بررسی امنیت و تأیید نتیجه از نگاه محصول. |
+| [agile-team](skills/agile-team/SKILL.md) | Implement features and fixes in stages, with acceptance criteria, security review, and product verification. |
 
-## ساختار ریپو
-
-</div>
+## Repository structure
 
 ```text
 Skills/
@@ -24,17 +19,12 @@ Skills/
         └── SKILL.md
 ```
 
-<div dir="rtl">
+When needed, a skill can include `scripts/` for executable helpers, `references/` for supporting documentation, and `assets/` for files used in its output.
 
-هر اسکیل در صورت نیاز می‌تواند پوشه‌های `scripts/` برای ابزارهای اجرایی، `references/` برای مستندات کمکی و `assets/` برای فایل‌های مورد استفاده در خروجی داشته باشد.
+## Adding a skill
 
-## افزودن اسکیل جدید
-
-۱. داخل `skills/` یک پوشه با نام انگلیسی کوچک و خط تیره بساز؛ مثلاً `laravel-helper`.
-
-۲. در آن فایل `SKILL.md` بساز. این نمونه را با کاربرد واقعی اسکیل خودت کامل کن:
-
-</div>
+1. Create a folder inside `skills/` using lowercase letters and hyphens, such as `laravel-helper`.
+2. Add a `SKILL.md` file. Adapt this example to your skill's actual purpose:
 
 ```markdown
 ---
@@ -51,15 +41,9 @@ Use this skill when reviewing Laravel controllers.
 3. Report actionable findings with file locations and suggested fixes.
 ```
 
-<div dir="rtl">
-
-۳. مشخص کن اسکیل چه زمانی استفاده شود، چه مراحلی داشته باشد و چه خروجی‌ای بدهد. نام پوشه و مقدار `name` را یکسان نگه دار.
-
-۴. لینک و توضیح کوتاه آن را به جدول اسکیل‌های همین صفحه اضافه کن.
-
-۵. تغییرات را بررسی و ارسال کن:
-
-</div>
+3. Explain when to use the skill, which steps to follow, and what output to produce. Keep the folder name and the `name` field consistent.
+4. Add a link and a short description to the skills table above.
+5. Review and publish your changes:
 
 ```powershell
 Set-Location 'D:\My-skills'
@@ -71,28 +55,20 @@ git commit -m "Add laravel-helper skill"
 git push
 ```
 
-<div dir="rtl">
+## Getting started
 
-## دریافت و استفاده
-
-برای دریافت ریپو:
-
-</div>
+Clone the repository:
 
 ```powershell
 git clone https://github.com/Artashok11228/Skills.git
 ```
 
-<div dir="rtl">
+Copy the skill folder you want to use into your AI tool's skills directory. Installation paths and activation steps depend on the tool. Cloning this repository alone does not activate the skills.
 
-سپس پوشهٔ اسکیل موردنظر را در مسیر اسکیل‌های ابزار خود قرار بده. مسیر نصب و روش فعال‌سازی به ابزار بستگی دارد؛ فقط کلون کردن این ریپو، اسکیل‌ها را در ابزارها فعال نمی‌کند.
+## Maintenance
 
-## نگهداری
-
-- هر اسکیل یک پوشه و یک کاربرد مشخص داشته باشد.
-- فایل‌های کمکی را فقط زمانی اضافه کن که واقعاً لازم‌اند.
-- رمز، توکن، فایل محیطی و اطلاعات خصوصی را وارد ریپو نکن.
-- پیش از هر ارسال، تغییرات آمادهٔ ثبت را با `git diff --cached` بررسی کن.
-- پیش از انتشار برای استفادهٔ دیگران، مجوز مناسب را انتخاب و در فایل `LICENSE` ثبت کن.
-
-</div>
+- Give each skill its own folder and a clear purpose.
+- Add supporting files only when they are needed.
+- Keep passwords, tokens, environment files, and private information out of the repository.
+- Review staged changes with `git diff --cached` before publishing.
+- Before distributing the skills for others to use, choose an appropriate license and add a `LICENSE` file.
