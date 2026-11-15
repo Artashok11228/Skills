@@ -1,22 +1,27 @@
 # Skills
 
-My personal collection of skills for AI assistants. Each skill lives in its own folder, with its main instructions in a `SKILL.md` file.
+My personal collection of skills for AI assistants. Each skill lives in its own folder under `skills/`, with its main instructions in a `SKILL.md` file.
 
 ## Available skills
 
 | Skill | Purpose |
 | --- | --- |
 | [agile-team](skills/agile-team/SKILL.md) | Implement features and fixes in stages, with acceptance criteria, security review, and product verification. |
+| [the-commander](skills/the-commander/SKILL.md) | Plan the shortest workflow from installed Claude Code, Codex, and Cursor skills; does not execute skills. |
 
 ## Repository structure
 
 ```text
-Skills/
+My-skills/
 ├── README.md
 ├── .gitignore
 └── skills/
-    └── agile-team/
-        └── SKILL.md
+    ├── agile-team/
+    │   └── SKILL.md
+    └── the-commander/
+        ├── SKILL.md
+        ├── references/
+        └── scripts/
 ```
 
 When needed, a skill can include `scripts/` for executable helpers, `references/` for supporting documentation, and `assets/` for files used in its output.
@@ -67,7 +72,8 @@ Copy the skill folder you want to use into your AI tool's skills directory. Inst
 
 ## Maintenance
 
-- Give each skill its own folder and a clear purpose.
+- Give each skill its own folder under `skills/` and a clear purpose.
+- Keep the folder name identical to the YAML `name` field (lowercase + hyphens).
 - Add supporting files only when they are needed.
 - Keep passwords, tokens, environment files, and private information out of the repository.
 - Review staged changes with `git diff --cached` before publishing.

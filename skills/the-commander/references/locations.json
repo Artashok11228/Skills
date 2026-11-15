@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-11-15",
+  "notes": [
+    "base=home: joined to Path.home(); base=project: joined to every directory from cwd up to the git root; base=absolute: used as-is.",
+    "max_depth=1 means <root>/<skill>/SKILL.md; larger values allow category folders.",
+    "Plugin skill folders are never guessed; see plugin_commands."
+  ],
+  "tools": {
+    "claude": {
+      "label": "Claude Code",
+      "host_env": ["CLAUDECODE"],
+      "invoke": "/skill-name",
+      "name_precedence": ["organization", "personal", "project"],
+      "name_conflict_rule": "Enterprise over personal, personal over project; nested project skills both load; a synced claude.ai skill loses to any other skill of the same name.",
+      "docs": "https://code.claude.com/docs/en/skills"
+    },
+    "codex": {
+      "label": "Codex",
+      "host_env": ["CODEX_THREAD_ID", "CODEX_SANDBOX", "CODEX_SANDBOX_NETWORK_DISABLED"],
+      "invoke": "$skill-name (or /skills)",
+      "name_precedence": [],
+      "name_conflict_rule": "Codex does not merge same-name skills; both can appear in selectors, so the effective one is ambiguous.",
+      "docs": "https://developers.openai.com/codex/skills"
+    },
+    "cursor": {
+      "label": "Cursor",
+      "host_env": ["CURSOR_AGENT"],
+      "invoke": "/skill-name",
+      "name_precedence": [],
+      "name_conflict_rule": "Not documented by Cursor; treat same-name skills as ambiguous.",
+      "docs": "https://cursor.com/docs/context/skills"
+    }
+  },
+  "locations": [
+    {"tool": "claude", "level": "organization", "os": ["windows"], "base": "absolute", "path": "C:/Program Files/ClaudeCode/.claude/skills", "max_depth": 1, "doc": "https://code.claude.com/docs/en/managed-settings"},
+    {"tool": "claude", "level": "organization", "os": ["macos"], "base": "absolute", "path": "/Library/Application Support/ClaudeCode/.claude/skills", "max_depth": 1, "doc": "https://code.claude.com/docs/en/managed-settings"},
+    {"tool": "claude", "level": "organization", "os": ["linux"], "base": "absolute", "path": "/etc/claude-code/.claude/skills", "max_depth": 1, "doc": "https://code.claude.com/docs/en/managed-settings"},
+    {"tool": "claude", "level": "synced", "os": ["windows", "macos", "linux"], "base": "home", "path": ".claude/skills/synced", "max_depth": 1, "doc": "https://code.claude.com/docs/en/skills#skills-synced-from-claude-ai"},
+    {"tool": "claude", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".claude/skills", "max_depth": 1, "skip_children": ["synced"], "doc": "https://code.claude.com/docs/en/skills"},
+    {"tool": "claude", "level": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".claude/skills", "max_depth": 1, "doc": "https://code.claude.com/docs/en/skills"},
+
+    {"tool": "codex", "level": "organization", "os": ["macos", "linux"], "base": "absolute", "path": "/etc/codex/skills", "max_depth": 1, "doc": "https://developers.openai.com/codex/skills (ADMIN scope; no Windows path documented)"},
+    {"tool": "codex", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".agents/skills", "max_depth": 1, "doc": "https://developers.openai.com/codex/skills (USER scope)"},
+    {"tool": "codex", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".codex/skills", "max_depth": 1, "doc": "Legacy USER location still used by Codex installs and read by Cursor for Codex compatibility; kept because sources disagree"},
+    {"tool": "codex", "level": "system", "os": ["windows", "macos", "linux"], "base": "home", "path": ".codex/skills/.system", "max_depth": 1, "doc": "Public docs call these SYSTEM skills bundled with Codex and do not give a path. This hidden folder is where the local Codex install keeps them. Cursor's documented compatibility roots do not say they enter hidden folders, so the cursor scan does not."},
+    {"tool": "codex", "level": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".agents/skills", "max_depth": 1, "doc": "https://developers.openai.com/codex/skills (REPO scope, cwd up to repo root)"},
+
+    {"tool": "cursor", "level": "system", "os": ["windows", "macos", "linux"], "base": "home", "path": ".cursor/skills-cursor", "max_depth": 4, "doc": "Reserved for Cursor built-in skills (Cursor create-skill skill); not listed in public docs"},
+    {"tool": "cursor", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".cursor/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills"},
+    {"tool": "cursor", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".agents/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills"},
+    {"tool": "cursor", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".claude/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills (compatibility)"},
+    {"tool": "cursor", "level": "personal", "os": ["windows", "macos", "linux"], "base": "home", "path": ".codex/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills (compatibility)"},
+    {"tool": "cursor", "level": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".cursor/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills"},
+    {"tool": "cursor", "level": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".agents/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills"},
+    {"tool": "cursor", "level": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".claude/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills (compatibility)"},
+    {"tool": "cursor", "level": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".codex/skills", "max_depth": 4, "doc": "https://cursor.com/docs/context/skills (compatibility)"}
+  ],
+  "settings": [
+    {"tool": "codex", "kind": "codex_config", "scope": "user", "os": ["windows", "macos", "linux"], "base": "home", "path": ".codex/config.toml", "doc": "https://developers.openai.com/codex/skills#enable-or-disable-local-codex-skills"},
+    {"tool": "codex", "kind": "codex_config", "scope": "project", "os": ["windows", "macos", "linux"], "base": "project", "path": ".codex/config.toml", "doc": "[skills.bundled] enabled=false disables system skills for a trusted project"},
+    {"tool": "claude", "kind": "claude_settings", "scope": "user", "rank": 1, "os": ["windows", "macos", "linux"], "base": "home", "path": ".claude/settings.json", "doc": "https://code.claude.com/docs/en/settings"},
+    {"tool": "claude", "kind": "claude_settings", "scope": "project", "rank": 2, "os": ["windows", "macos", "linux"], "base": "project", "path": ".claude/settings.json", "doc": "https://code.claude.com/docs/en/settings"},
+    {"tool": "claude", "kind": "claude_settings", "scope": "local", "rank": 3, "os": ["windows", "macos", "linux"], "base": "project", "path": ".claude/settings.local.json", "doc": "https://code.claude.com/docs/en/settings"},
+    {"tool": "claude", "kind": "claude_settings", "scope": "managed", "rank": 4, "os": ["windows"], "base": "absolute", "path": "C:/Program Files/ClaudeCode/managed-settings.json", "doc": "https://code.claude.com/docs/en/managed-settings"},
+    {"tool": "claude", "kind": "claude_settings", "scope": "managed", "rank": 4, "os": ["macos"], "base": "absolute", "path": "/Library/Application Support/ClaudeCode/managed-settings.json", "doc": "https://code.claude.com/docs/en/managed-settings"},
+    {"tool": "claude", "kind": "claude_settings", "scope": "managed", "rank": 4, "os": ["linux"], "base": "absolute", "path": "/etc/claude-code/managed-settings.json", "doc": "https://code.claude.com/docs/en/managed-settings"}
+  ],
+  "plugin_commands": {
+    "claude": {"command": ["claude", "plugin", "list"], "env": {"DISABLE_AUTOUPDATER": "1"}, "gives": "plugin names, scope and status only (no skill paths)", "doc": "https://code.claude.com/docs/en/discover-plugins"},
+    "codex": {"command": null, "reason": "Codex documents only the interactive /plugins browser; no non-interactive list command", "doc": "https://developers.openai.com/codex/plugins"},
+    "cursor": {"command": null, "reason": "Cursor documents no command-line plugin listing; plugins are managed in Customize", "doc": "https://cursor.com/docs/context/skills"}
+  }
+}
